@@ -3,25 +3,22 @@ package com.rabbiter.oes.controller;
 import com.rabbiter.oes.entity.*;
 import com.rabbiter.oes.serviceimpl.LoginServiceImpl;
 import com.rabbiter.oes.util.ApiResultHandler;
-import org.apache.tomcat.util.security.MD5Encoder;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
 @RestController
+@AllArgsConstructor
 public class LoginController {
-
-    @Autowired
-    private LoginServiceImpl loginService;
+    private final LoginServiceImpl loginService;
 
     @PostMapping("/login")
-    public ApiResult login(@RequestBody Login login, HttpServletRequest request, HttpServletResponse response) {
+    public ApiResult<Object> login(@RequestBody Login login, HttpServletResponse response) {
 
         Integer username = login.getUsername();
         String password = login.getPassword();
@@ -65,7 +62,7 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
+    public void logout(HttpServletResponse response) {
         Cookie token = new Cookie("rb_token", null);
         token.setPath("/");
         token.setMaxAge(0);

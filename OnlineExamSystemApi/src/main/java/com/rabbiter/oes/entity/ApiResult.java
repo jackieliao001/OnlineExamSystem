@@ -1,7 +1,18 @@
 package com.rabbiter.oes.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class ApiResult<T> {
+import java.io.Serializable;
+
+/**
+ * 统一的API响应结果对象
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ApiResult<T>implements Serializable {
     /**
      * 错误码，表示一种错误类型
      * 请求成功，状态码为200
@@ -18,36 +29,26 @@ public class ApiResult<T> {
      */
     private T data;
 
-    public ApiResult() {
-    }
-
-    public ApiResult(int code, String message, T data) {
-        this.code = code;
-        this.message = message;
+    /**
+     * 成功的默认构造方法
+     *
+     * @param data 成功时返回的数据
+     */
+    public ApiResult(T data) {
+        this.code = 200; // 或者其他成功的状态码，如 Constant.SUCCESS_CODE
+        this.message = "请求成功";
         this.data = data;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
+    /**
+     * 错误的构造方法
+     *
+     * @param code 错误状态码
+     * @param message 错误信息
+     */
+    public ApiResult(int code, String message) {
         this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
         this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
+        this.data = null;
     }
 }
