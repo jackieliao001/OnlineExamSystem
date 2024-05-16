@@ -1,23 +1,28 @@
 # OnlineExamSystem
 
 #### 介绍
-在线考试系统
+
+在线考试系统, 前后端分离。
+
+技术栈：
+- 后端：SpringBoot+MyBatisPlus；
+- 前端：Vue+ElementUI；
 
 #### 软件架构
-软件架构说明
+软件架构说明。待补充
 
-
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
+1. 数据库导入
+   数据库执行db/online_exam.sql文件
+2. 配置数据库并运行
+3. 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1. 初始化数据库，执行db/online_exam.sql文件
+2. 导入后端代码，配置数据库连接，运行
+3. 导入前端代码，运行
+4. 搭建完成
+
+管理员初始化账号：9991/123456
 
 #### 参与贡献
 
@@ -26,12 +31,6 @@
 3.  提交代码
 4.  新建 Pull Request
 
+#### 鸣谢
 
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+忘记那里来的源码，改版了一下，感谢原作者。欢迎原作联系本人修改。

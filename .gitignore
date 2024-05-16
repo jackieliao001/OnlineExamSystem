@@ -1,0 +1,73 @@
+# OS generated files
+Thumbs.db
+ehthumbs.db
+.DS_Store
+
+# Log files
+logs/
+
+# Gradle
+.gradle/
+build/
+
+# IntelliJ IDEA specific
+.idea/
+.idea_modules/
+out/
+target/
+*.iws
+*.ipr
+*.iml
+
+
+# Visual Studio Code specific
+.vscode/
+**/.vscode/settings.json
+**/vscode/tasks.json
+**/vscode/launch.json
+**/vscode/extensions.json
+*.vscodeignore
+
+# Node.js and npm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Webpack
+dist/
+build/
+
+# Vue.js
+*.vue.js.map
+*.vue.css.map
+
+# Babel
+.babelrc
+*.log
+
+# TypeScript
+tsconfig.tsbuildinfo
+
+# ESLint
+.eslintcache
+*.eslintcache
+
+# Angular
+tmp/
+coverage/
+
+# React
+public/build/
+
+# Prettier
+.prettierrc
+.prettierignore
+
+# Editor configurations
+.editorconfig
+
+# Global npm modules
+.npm/
+.npmrc
