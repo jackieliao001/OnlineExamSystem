@@ -1,5 +1,6 @@
 package com.rabbiter.oes.system.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Getter;
@@ -19,14 +20,17 @@ import java.util.Date;
 public class SysUserRole implements Serializable {
     private static final long serialVersionUID = -40459431683818723L;
     /**
+     * ID
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
+    /**
      * 用户ID
      */
-    @TableId
     private Long userId;
     /**
      * 角色ID
      */
-    @TableId
     private Long roleId;
     /**
      * 是否已删除

@@ -7,7 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-//@MapperScan("com.rabbiter.oes.*.mapper")
 @SpringBootApplication
 public class OnlineExamSystemApplication {
 
