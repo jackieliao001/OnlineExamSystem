@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rabbiter.oes.system.mapper.SysUserMapper">
+
+    <resultMap id="BaseResultMap" type="com.rabbiter.oes.system.entity.SysUser">
+        <!--@Table sys_user-->
+        <result property="userId" column="user_id" jdbcType="BIGINT"/>
+        <result property="accountNum" column="account_num" jdbcType="VARCHAR"/>
+        <result property="pwd" column="pwd" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="accountStatus" column="account_status" jdbcType="CHAR"/>
+        <result property="sex" column="sex" jdbcType="CHAR"/>
+        <result property="tel" column="tel" jdbcType="CHAR"/>
+        <result property="idCard" column="id_card" jdbcType="CHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="hasDelete" column="is_delete" jdbcType="TINYINT" javaType="Boolean"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="DATE"/>
+        <result property="modifiedBy" column="modified_by" jdbcType="VARCHAR"/>
+        <result property="modifiedTime" column="modified_time" jdbcType="DATE"/>
+    </resultMap>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select user_id, account_num, pwd, user_name, account_status, sex, tel, id_card, email, is_delete, create_by, create_time, modified_by, modified_time
+        from sys_user
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="accountNum != null and accountNum != ''">
+                and account_num = #{accountNum}
+            </if>
+            <if test="pwd != null and pwd != ''">
+                and pwd = #{pwd}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="accountStatus != null and accountStatus != ''">
+                and account_status = #{accountStatus}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="tel != null and tel != ''">
+                and tel = #{tel}
+            </if>
+            <if test="idCard != null and idCard != ''">
+                and id_card = #{idCard}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="modifiedBy != null and modifiedBy != ''">
+                and modified_by = #{modifiedBy}
+            </if>
+            <if test="modifiedTime != null">
+                and modified_time = #{modifiedTime}
+            </if>
+        </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(*)
+        from sys_user
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="accountNum != null and accountNum != ''">
+                and account_num = #{accountNum}
+            </if>
+            <if test="pwd != null and pwd != ''">
+                and pwd = #{pwd}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="accountStatus != null and accountStatus != ''">
+                and account_status = #{accountStatus}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="tel != null and tel != ''">
+                and tel = #{tel}
+            </if>
+            <if test="idCard != null and idCard != ''">
+                and id_card = #{idCard}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="modifiedBy != null and modifiedBy != ''">
+                and modified_by = #{modifiedBy}
+            </if>
+            <if test="modifiedTime != null">
+                and modified_time = #{modifiedTime}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertBatch" keyProperty="userId" useGeneratedKeys="true">
+        insert into sys_user(account_num, pwd, user_name, account_status, sex, tel, id_card, email, is_delete, create_by, create_time, modified_by, modified_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.accountNum}, #{entity.pwd}, #{entity.userName}, #{entity.accountStatus}, #{entity.sex}, #{entity.tel}, #{entity.idCard}, #{entity.email}, #{entity.isDelete}, #{entity.createBy}, #{entity.createTime}, #{entity.modifiedBy}, #{entity.modifiedTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="userId" useGeneratedKeys="true">
+        insert into sys_user(account_num, pwd, user_name, account_status, sex, tel, id_card, email, is_delete, create_by, create_time, modified_by, modified_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.accountNum}, #{entity.pwd}, #{entity.userName}, #{entity.accountStatus}, #{entity.sex}, #{entity.tel}, #{entity.idCard}, #{entity.email}, #{entity.isDelete}, #{entity.createBy}, #{entity.createTime}, #{entity.modifiedBy}, #{entity.modifiedTime})
+        </foreach>
+        on duplicate key update
+            account_num = values(account_num),
+            pwd = values(pwd),
+            user_name = values(user_name),
+            account_status = values(account_status),
+            sex = values(sex),
+            tel = values(tel),
+            id_card = values(id_card),
+            email = values(email),
+            is_delete = values(is_delete),
+            create_by = values(create_by),
+            create_time = values(create_time),
+            modified_by = values(modified_by),
+            modified_time = values(modified_time)
+    </insert>
+</mapper>
+

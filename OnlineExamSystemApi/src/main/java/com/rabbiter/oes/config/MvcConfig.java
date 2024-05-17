@@ -1,6 +1,5 @@
 package com.rabbiter.oes.config;
 
-import com.rabbiter.oes.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
