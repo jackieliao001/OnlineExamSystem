@@ -18,35 +18,26 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
     /**
      * 查询指定行数据
      *
-     * @param page 分页对象
-     * @param sysRole  查询条件
+     * @param page    分页对象
+     * @param sysRole 查询条件
      * @return 对象列表
      */
     IPage<SysRole> queryAllByLimit(IPage<SysRole> page, SysRole sysRole);
 
     /**
-     * 统计总行数
+     * 根据用户ID查询角色
      *
-     * @param sysRole 查询条件
-     * @return 总行数
+     * @param userId 用户ID
+     * @return 角色列表
      */
-    long count(SysRole sysRole);
+    List<SysRole> selectRolePermissionByUserId(@Param("userId") Long userId);
 
     /**
-     * 批量新增数据（MyBatis原生foreach方法）
+     * 根据用户ID获取角色选择框列表
      *
-     * @param entities List<SysRole> 实例对象列表
-     * @return 影响行数
+     * @param userId 用户ID
+     * @return 选中角色ID列表
      */
-    int insertBatch(@Param("entities") List<SysRole> entities);
-
-    /**
-     * 批量新增或按主键更新数据（MyBatis原生foreach方法）
-     *
-     * @param entities List<SysRole> 实例对象列表
-     * @return 影响行数
-     * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
-     */
-    int insertOrUpdateBatch(@Param("entities") List<SysRole> entities);
+    List<Long> selectRoleListByUserId(Long userId);
 }
 

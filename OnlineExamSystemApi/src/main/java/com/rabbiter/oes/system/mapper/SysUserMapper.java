@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.rabbiter.oes.system.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 /**
  * 系统用户表(SysUser)表数据库访问层
  *
@@ -25,28 +23,36 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     IPage<SysUser> queryAllByLimit(IPage<SysUser> page, SysUser sysUser);
 
     /**
-     * 统计总行数
+     * 修改用户头像
      *
-     * @param sysUser 查询条件
-     * @return 总行数
+     * @param account 账号
+     * @param avatar 头像地址
+     * @return 结果
      */
-    long count(SysUser sysUser);
+    int updateUserAvatar(@Param("account") String account, @Param("avatar") String avatar);
+
 
     /**
-     * 批量新增数据（MyBatis原生foreach方法）
+     * 校验用户名称是否唯一
      *
-     * @param entities List<SysUser> 实例对象列表
-     * @return 影响行数
+     * @param account 用户名称
+     * @return 结果
      */
-    int insertBatch(@Param("entities") List<SysUser> entities);
+    SysUser checkAccountUnique(@Param("account") String account);
 
     /**
-     * 批量新增或按主键更新数据（MyBatis原生foreach方法）
+     * 校验手机号码是否唯一
      *
-     * @param entities List<SysUser> 实例对象列表
-     * @return 影响行数
-     * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
+     * @param tel 手机号码
+     * @return 结果
      */
-    int insertOrUpdateBatch(@Param("entities") List<SysUser> entities);
+    SysUser checkPhoneUnique(@Param("tel") String tel);
+
+    /**
+     * 校验email是否唯一
+     *
+     * @param email 用户邮箱
+     * @return 结果
+     */
+    SysUser checkEmailUnique(@Param("email") String email);
 }
-

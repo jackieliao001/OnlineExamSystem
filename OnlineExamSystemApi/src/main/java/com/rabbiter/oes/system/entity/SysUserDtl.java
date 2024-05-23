@@ -2,12 +2,9 @@ package com.rabbiter.oes.system.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.rabbiter.oes.common.domain.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
-import java.io.Serializable;
 
 /**
  * 系统用户详情表(SysUserdtl)实体类
@@ -17,7 +14,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class SysUserDtl implements Serializable {
+public class SysUserDtl extends BaseEntity {
     private static final long serialVersionUID = -33358725890206389L;
     /**
      * 用户详情ID
@@ -52,26 +49,6 @@ public class SysUserDtl implements Serializable {
      * 备注
      */
     private String remark;
-    /**
-     * 是否已删除
-     */
-    @TableLogic
-    private boolean hasDelete;
-    /**
-     * 创建人
-     */
-    private String createBy;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 修改人
-     */
-    private String modifiedBy;
-    /**
-     * 修改时间
-     */
-    private Date modifiedTime;
+
 }
 

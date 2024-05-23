@@ -26,8 +26,44 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public IPage<SysUser> queryByPage(SysUser sysUser, PageRequest pageRequest) {
-        Page<SysUser> page = Page.of(pageRequest.getCurrent(),pageRequest.getSize());
-        return baseMapper.queryAllByLimit(page,sysUser);
+        Page<SysUser> page = Page.of(pageRequest.getCurrent(), pageRequest.getSize());
+        return baseMapper.queryAllByLimit(page, sysUser);
+    }
+
+    @Override
+    public boolean checkAccountUnique(SysUser user) {
+        long userId = null == user.getUserId() ? -1L : user.getUserId();
+        SysUser info = baseMapper.checkAccountUnique(user.getAccount());
+        return null == info || info.getUserId() == userId;
+    }
+
+    @Override
+    public boolean checkPhoneUnique(SysUser user) {
+        long userId = null == user.getUserId() ? -1L : user.getUserId();
+        SysUser info = baseMapper.checkPhoneUnique(user.getAccount());
+        return null == info || info.getUserId() == userId;
+    }
+
+    @Override
+    public boolean checkEmailUnique(SysUser user) {
+        long userId = null == user.getUserId() ? -1L : user.getUserId();
+        SysUser info = baseMapper.checkEmailUnique(user.getAccount());
+        return null == info || info.getUserId() == userId;
+    }
+
+    @Override
+    public int updateUserAvatar(String userName, String avatar) {
+        return baseMapper.updateUserAvatar(userName, avatar);
+    }
+
+    @Override
+    public int resetPwd(SysUser user) {
+        return baseMapper.update(lambdaUpdate().set(SysUser::getPwd, user.getPwd()).eq(SysUser::getUserId, user.getUserId()));
+    }
+
+    @Override
+    public int resetUserPwd(String account, String password) {
+        return baseMapper.update(lambdaUpdate().set(SysUser::getPwd, password).eq(SysUser::getAccount, account));
     }
 
 }

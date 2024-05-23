@@ -1,34 +1,71 @@
 package com.rabbiter.oes.system.service.impl;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.rabbiter.oes.common.resp.PageRequest;
-import com.rabbiter.oes.system.entity.SysPermission;
-import com.rabbiter.oes.system.mapper.SysPermissionMapper;
+import cn.hutool.core.collection.CollUtil;
+import com.rabbiter.oes.common.enums.SysInBuildEnum;
+import com.rabbiter.oes.common.util.AuthUtils;
+import com.rabbiter.oes.system.service.SysMenuService;
 import com.rabbiter.oes.system.service.SysPermissionService;
+import com.rabbiter.oes.system.service.SysRoleService;
+import com.rabbiter.oes.system.service.SysUserService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
- * 系统权限表(SysPermission)表服务实现类
- *
- * @author jackie liao
- * @since 2024-05-17 15:20:25
+ * @author JackieLiao
+ * @description 系统用户权限
+ * @package com.rabbiter.oes.system.service.impl
+ * @since 2024/5/23
  */
-@Service("sysPermissionService")
-public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission> implements SysPermissionService {
+@Service
+public class SysPermissionServiceImpl implements SysPermissionService {
+    @Resource
+    private SysUserService userService;
+    @Resource
+    private SysRoleService roleService;
+
+    @Resource
+    private SysMenuService menuService;
+
+    @Override
+    public Set<String> getRolePermission(Long userId) {
+        Set<String> roles = new HashSet<>();
+        // 管理员拥有所有权限
+        if (AuthUtils.isSupperAdmin(userId)) {
+            roles.add(SysInBuildEnum.BUILD_IN_ROLE_CODE.getCode());
+        } else {
+            roles.addAll(roleService.selectRolePermissionByUserId(userId));
+        }
+        return roles;
+    }
 
     /**
-     * 分页查询
+     * 获取菜单数据权限
      *
-     * @param sysPermission 筛选条件
-     * @param pageRequest   分页对象
-     * @return 查询结果
+     * @param userId 用户信息
+     * @return 菜单权限信息
      */
     @Override
-    public IPage<SysPermission> queryByPage(SysPermission sysPermission, PageRequest pageRequest) {
-        IPage<SysPermission> page = Page.of(pageRequest.getCurrent(), pageRequest.getSize());
-        return this.baseMapper.queryAllByLimit(page, sysPermission);
+    public Set<String> getMenuPermission(Long userId) {
+        Set<String> perms = new HashSet<>();
+        // 管理员拥有所有权限
+        if (AuthUtils.isSupperAdmin(userId)) {
+            perms.add("*:*:*");
+        } else {
+            List<Long> roleIds = roleService.selectRoleListByUserId(userId);
+            if (CollUtil.isEmpty(roleIds)) { // 无角色，用户默认菜单权限
+                perms.addAll(menuService.selectMenuPermsByUserId(userId));
+            } else {
+                // 多角色设置permissions属性，以便数据权限匹配权限
+                for (Long roleId : roleIds) {
+                    Set<String> rolePerms = menuService.selectMenuPermsByRoleId(roleId);
+                    perms.addAll(rolePerms);
+                }
+            }
+        }
+        return perms;
     }
 }

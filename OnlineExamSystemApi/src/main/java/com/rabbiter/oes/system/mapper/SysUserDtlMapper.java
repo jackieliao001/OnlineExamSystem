@@ -20,4 +20,3 @@ public interface SysUserDtlMapper extends BaseMapper<SysUserDtl> {
 
     int deleteByUserId(@Param("userId") Long userId);
 }
-

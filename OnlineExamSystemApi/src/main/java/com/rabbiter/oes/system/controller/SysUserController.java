@@ -2,10 +2,10 @@ package com.rabbiter.oes.system.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.rabbiter.oes.common.resp.ApiResult;
+import com.rabbiter.oes.common.resp.ApiResultHandler;
 import com.rabbiter.oes.common.resp.PageRequest;
 import com.rabbiter.oes.system.entity.SysUser;
 import com.rabbiter.oes.system.service.SysUserService;
-import com.rabbiter.oes.common.resp.ApiResultHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2024-05-17 15:15:45
  */
 @RestController
-@RequestMapping("/sys/user")
+@RequestMapping("/api/system/user")
 @AllArgsConstructor
 public class SysUserController {
     private final SysUserService sysUserService;

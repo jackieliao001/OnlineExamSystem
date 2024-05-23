@@ -21,4 +21,57 @@ public interface SysUserService extends IService<SysUser> {
      * @return 查询结果
      */
     IPage<SysUser> queryByPage(SysUser sysUser, PageRequest pageRequest);
+
+
+    /**
+     * 校验用户名称是否唯一
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    boolean checkAccountUnique(SysUser user);
+
+    /**
+     * 校验手机号码是否唯一
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    boolean checkPhoneUnique(SysUser user);
+
+    /**
+     * 校验email是否唯一
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    boolean checkEmailUnique(SysUser user);
+
+    /**
+     * 修改用户头像
+     *
+     * @param account 账号
+     * @param avatar  头像地址
+     * @return 结果
+     */
+    int updateUserAvatar(String account, String avatar);
+
+
+    /**
+     * 重置用户密码
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    int resetPwd(SysUser user);
+
+    /**
+     * 重置用户密码
+     *
+     * @param account  账号
+     * @param password 密码
+     * @return 结果
+     */
+    int resetUserPwd(String account, String password);
+
 }

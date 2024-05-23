@@ -1,25 +1,27 @@
 package com.rabbiter.oes.system.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.rabbiter.oes.common.resp.PageRequest;
-import com.rabbiter.oes.system.entity.SysPermission;
+import java.util.Set;
 
 /**
- * 系统权限表(SysPermission)表服务接口
- *
- * @author jackie liao
- * @since 2024-05-17 15:20:25
+ * @description 系统用户权限接口
+ * @author JackieLiao
+ * @package com.rabbiter.oes.system.service
+ * @since 2024/5/23
  */
-public interface SysPermissionService extends IService<SysPermission> {
+public interface SysPermissionService {
+    /**
+     * 获取角色权限
+     *
+     * @param userId 用户信息ID
+     * @return 角色权限信息
+     */
+    Set<String> getRolePermission(Long userId);
 
     /**
-     * 分页查询
+     * 获取角色数据权限
      *
-     * @param sysPermission 筛选条件
-     * @param pageRequest   分页对象
-     * @return 查询结果
+     * @param userId 用户ID
+     * @return 角色权限信息
      */
-    IPage<SysPermission> queryByPage(SysPermission sysPermission, PageRequest pageRequest);
-
+    Set<String> getMenuPermission(Long userId);
 }

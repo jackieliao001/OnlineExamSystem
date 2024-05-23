@@ -2,13 +2,13 @@ package com.rabbiter.oes.system.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rabbiter.oes.common.domain.BaseEntity;
 import com.rabbiter.oes.common.enums.SexEnum;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.io.Serializable;
 
 /**
  * 系统用户表(SysUser)实体类
@@ -18,7 +18,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class SysUser implements Serializable {
+public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 776630034631286344L;
     /**
      * 主键
@@ -28,19 +28,28 @@ public class SysUser implements Serializable {
     /**
      * 登录账号
      */
-    private String accountNum;
+    private String account;
     /**
      * 密码
      */
+    @JsonIgnore
     private String pwd;
     /**
-     * 用户名/昵称
+     * 用户昵称
      */
-    private String userName;
+    private String nickName;
+    /**
+     * 头像
+     */
+    private String avatar;
+    /**
+     * 用户类型（00系统用户）
+     */
+    private String userType;
     /**
      * 账户状态:1激活、0停用
      */
-    private String accountStatus;
+    private String status;
     /**
      * 性别:1男，2女，3未知
      */
@@ -57,26 +66,12 @@ public class SysUser implements Serializable {
      * 邮箱
      */
     private String email;
-    /**
-     * 是否已删除
-     */
-    @TableLogic
-    private boolean hasDelete;
-    /**
-     * 创建人
-     */
-    private String createBy;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 修改人
-     */
-    private String modifiedBy;
-    /**
-     * 修改时间
-     */
-    private Date modifiedTime;
+
+    /** 最后登录IP */
+    private String loginIp;
+
+    /** 最后登录时间 */
+    private Date loginDate;
+
 }
 

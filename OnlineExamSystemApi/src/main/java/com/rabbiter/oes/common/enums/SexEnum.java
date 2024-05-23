@@ -7,6 +7,7 @@ import java.util.Objects;
 
 /**
  * 性别:1男，2女，3未知
+ * @author JackieLiao
  */
 @Getter
 public enum SexEnum {
