@@ -1,9 +1,9 @@
 package com.rabbiter.oes.system.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
 
 /**
  * 系统用户角色关联表(SysUserRole)实体类
@@ -13,8 +13,9 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class SysUserRole implements Serializable {
-    private static final long serialVersionUID = -40459431683818723L;
+public class SysUserRole {
+    @TableId(type = IdType.AUTO)
+    private Long id;
     /**
      * 用户ID
      */

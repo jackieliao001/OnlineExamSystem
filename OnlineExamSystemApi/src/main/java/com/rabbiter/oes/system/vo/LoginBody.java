@@ -13,7 +13,7 @@ public class LoginBody {
     /**
      * 用户名
      */
-    private String username;
+    private String account;
 
     /**
      * 用户密码

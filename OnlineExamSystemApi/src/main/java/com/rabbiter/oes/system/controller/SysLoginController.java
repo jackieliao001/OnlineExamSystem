@@ -27,7 +27,7 @@ public class SysLoginController {
 
     @PostMapping("/login")
     public ApiResult<Object> login(@RequestBody LoginBody login, HttpServletResponse response) {
-        String username = login.getUsername();
+        String username = login.getAccount();
         String password = login.getPassword();
         LoginUserInfo userRes = loginService.login(username, password);
         if (userRes == null) {
