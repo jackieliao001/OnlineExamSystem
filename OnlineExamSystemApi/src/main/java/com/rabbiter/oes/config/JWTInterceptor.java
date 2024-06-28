@@ -1,7 +1,7 @@
 package com.rabbiter.oes.config;
 
 import cn.hutool.core.util.StrUtil;
-import com.rabbiter.oes.common.enums.ErrorCode;
+import com.rabbiter.oes.common.enums.ResponseCode;
 import com.rabbiter.oes.common.exception.TokenException;
 import com.rabbiter.oes.system.service.JWTService;
 import lombok.extern.slf4j.Slf4j;
@@ -70,7 +70,7 @@ public class JWTInterceptor implements HandlerInterceptor {
 
         if (StrUtil.isBlank(token)) {
             log.error("token 验证失败！token is blank, uri is {}", request.getRequestURI());
-            throw new TokenException(ErrorCode.TOKEN_NOT_FOUND);
+            throw new TokenException(ResponseCode.TOKEN_NOT_FOUND);
         }
 
         boolean isValid = jwtService.verify(token);

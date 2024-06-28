@@ -1,6 +1,6 @@
 package com.rabbiter.oes.common.exception;
 
-import com.rabbiter.oes.common.enums.ErrorCode;
+import com.rabbiter.oes.common.enums.ResponseCode;
 
 /**
  * API接口请求异常
@@ -10,14 +10,14 @@ import com.rabbiter.oes.common.enums.ErrorCode;
  * @since 2024/6/27
  */
 public class ApiException extends RuntimeException {
-    private final int errorCode;
+    private final String errorCode;
 
     /**
      * 默认错误码信息构造方法
      *
      * @param errorCode 错误码
      */
-    public ApiException(ErrorCode errorCode) {
+    public ApiException(ResponseCode errorCode) {
         super(errorCode.getMsg());
         this.errorCode = errorCode.getCode();
     }
@@ -28,7 +28,7 @@ public class ApiException extends RuntimeException {
      * @param errorCode 错误码
      * @param message   自定义错误信息
      */
-    public ApiException(ErrorCode errorCode, String message) {
+    public ApiException(ResponseCode errorCode, String message) {
         super(message);
         this.errorCode = errorCode.getCode();
     }
@@ -39,7 +39,7 @@ public class ApiException extends RuntimeException {
      * @param errorCode 错误码
      * @param cause     异常堆栈
      */
-    public ApiException(ErrorCode errorCode, Throwable cause) {
+    public ApiException(ResponseCode errorCode, Throwable cause) {
         super(errorCode.getMsg(), cause);
         this.errorCode = errorCode.getCode();
     }
@@ -51,7 +51,7 @@ public class ApiException extends RuntimeException {
      * @param message   自定义错误信息
      * @param cause     异常堆栈
      */
-    public ApiException(ErrorCode errorCode, String message, Throwable cause) {
+    public ApiException(ResponseCode errorCode, String message, Throwable cause) {
         super(message, cause);
         this.errorCode = errorCode.getCode();
     }

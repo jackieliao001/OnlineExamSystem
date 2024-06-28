@@ -5,7 +5,7 @@ import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jose.jwk.RSAKey;
-import com.rabbiter.oes.common.enums.ErrorCode;
+import com.rabbiter.oes.common.enums.ResponseCode;
 import com.rabbiter.oes.common.exception.TokenException;
 import com.rabbiter.oes.core.jwt.JwtPayloadInfo;
 import com.rabbiter.oes.system.service.JWTService;
@@ -91,7 +91,7 @@ public class RSAJwtServiceImpl implements JWTService {
             return jwsObject.serialize();
         } catch (JOSEException | ParseException e) {
             log.error("生成RSA签名Token失败", e);
-            throw new TokenException(ErrorCode.TOKEN_ERROR, e);
+            throw new TokenException(ResponseCode.TOKEN_ERROR, e);
         }
     }
 
@@ -111,9 +111,9 @@ public class RSAJwtServiceImpl implements JWTService {
             if (jwsObject.verify(jwsVerifier)) {
                 return jwsObject.getPayload().toString();
             }
-            throw new TokenException(ErrorCode.TOKEN_ERROR, "Payload can not be null");
+            throw new TokenException(ResponseCode.TOKEN_ERROR, "Payload can not be null");
         } catch (Exception e) {
-            throw new TokenException(ErrorCode.TOKEN_ERROR, e);
+            throw new TokenException(ResponseCode.TOKEN_ERROR, e);
         }
     }
 }

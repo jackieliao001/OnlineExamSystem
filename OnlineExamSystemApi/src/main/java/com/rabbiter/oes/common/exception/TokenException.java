@@ -1,6 +1,6 @@
 package com.rabbiter.oes.common.exception;
 
-import com.rabbiter.oes.common.enums.ErrorCode;
+import com.rabbiter.oes.common.enums.ResponseCode;
 import lombok.Getter;
 
 /**
@@ -12,14 +12,14 @@ import lombok.Getter;
  */
 @Getter
 public class TokenException extends RuntimeException {
-    private final int errorCode;
+    private final String errorCode;
 
     /**
      * 默认错误码信息构造方法
      *
      * @param errorCode 错误码
      */
-    public TokenException(ErrorCode errorCode) {
+    public TokenException(ResponseCode errorCode) {
         super(errorCode.getMsg());
         this.errorCode = errorCode.getCode();
     }
@@ -30,7 +30,7 @@ public class TokenException extends RuntimeException {
      * @param errorCode 错误码
      * @param message   自定义错误信息
      */
-    public TokenException(ErrorCode errorCode, String message) {
+    public TokenException(ResponseCode errorCode, String message) {
         super(message);
         this.errorCode = errorCode.getCode();
     }
@@ -41,7 +41,7 @@ public class TokenException extends RuntimeException {
      * @param errorCode 错误码
      * @param cause     异常堆栈
      */
-    public TokenException(ErrorCode errorCode, Throwable cause) {
+    public TokenException(ResponseCode errorCode, Throwable cause) {
         super(errorCode.getMsg(), cause);
         this.errorCode = errorCode.getCode();
     }
@@ -53,7 +53,7 @@ public class TokenException extends RuntimeException {
      * @param message   自定义错误信息
      * @param cause     异常堆栈
      */
-    public TokenException(ErrorCode errorCode, String message, Throwable cause) {
+    public TokenException(ResponseCode errorCode, String message, Throwable cause) {
         super(message, cause);
         this.errorCode = errorCode.getCode();
     }

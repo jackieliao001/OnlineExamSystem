@@ -1,17 +1,22 @@
 package com.rabbiter.oes.core.config;
 
+import cn.hutool.core.util.StrUtil;
+import com.rabbiter.oes.common.enums.ResponseCode;
 import com.rabbiter.oes.common.exception.TokenException;
 import com.rabbiter.oes.common.resp.ApiResult;
 import com.rabbiter.oes.common.resp.ApiResultHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.Objects;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 全局异常处理类
@@ -30,18 +35,32 @@ public class GlobalExceptionHandler {
      * @param e 参数异常
      * @return 错误信息
      */
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiResult<String> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+    public ApiResult<String> methodArgumentNotValidExceptionHandler(Exception e) {
         log.error("handler MethodArgumentNotValidException.参数异常！ msg : -> ", e);
-        return ApiResultHandler.failure(Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
+
+        List<FieldError> fieldErrors = null;
+        if (e instanceof MethodArgumentNotValidException) {
+            fieldErrors = ((MethodArgumentNotValidException) e).getBindingResult().getFieldErrors();
+        }
+        if (e instanceof BindException) {
+            fieldErrors = ((BindException) e).getBindingResult().getFieldErrors();
+        }
+        if (fieldErrors == null) {
+            return ApiResultHandler.failure(ResponseCode.METHOD_ARGUMENT_NOT_VALID);
+        }
+
+        String defaultMessages = fieldErrors.stream().map(fieldError -> fieldError.getField() + ":" + fieldError.getDefaultMessage()).collect(Collectors.joining(StrUtil.COMMA));
+
+        return ApiResultHandler.failure(ResponseCode.METHOD_ARGUMENT_NOT_VALID.getCode(), defaultMessages);
     }
 
     @ExceptionHandler(value = {TokenException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ApiResult<String> tokenExceptionHandler(TokenException e) {
+    public ApiResult<String> unauthorizedExceptionHandler(TokenException e) {
         log.error("handler TokenException.", e);
-        return new ApiResult<>(e.getErrorCode(), e.getMessage());
+        return ApiResultHandler.failure(e.getErrorCode(), e.getMessage());
     }
 
     /**
