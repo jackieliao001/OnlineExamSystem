@@ -1,5 +1,6 @@
 package com.rabbiter.oes.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rabbiter.oes.system.entity.SysUser;
 import com.rabbiter.oes.system.service.SysLoginService;
@@ -24,12 +25,14 @@ public class SysLoginServiceImpl implements SysLoginService {
         // 登录前置校验
 //        loginPreCheck(username, password);
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(SysUser::getAccount, account)
-                .eq(SysUser::getPwd, password);
+        queryWrapper.eq(SysUser::getAccount, account).eq(SysUser::getPwd, password);
         Optional<SysUser> oneOpt = userService.getOneOpt(queryWrapper);
         if (oneOpt.isPresent()) {
             SysUser sysUser = oneOpt.get();
-            LoginUserInfo loginUserInfo = new LoginUserInfo(sysUser, permissionService.getMenuPermission(sysUser.getUserId()));
+            sysUser.setPwd(null);
+            LoginUserInfo loginUserInfo = new LoginUserInfo();
+            BeanUtil.copyProperties(sysUser, loginUserInfo);
+            loginUserInfo.setPermissions(permissionService.getMenuPermission(sysUser.getUserId()));
             // 角色
 //            List<SysRoleInfo> userRoleList = roleMenuService.getRoleListByUserId(sysUser.getUserId());
 //            user.setUserRoleList(userRoleList);

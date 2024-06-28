@@ -1,6 +1,5 @@
 package com.rabbiter.oes.system.vo;
 
-import com.rabbiter.oes.system.entity.SysUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,11 +10,24 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class LoginUserInfo {
+// 账户基础信息
     /**
      * 主键
      */
     private Long userId;
+    /**
+     * 登录账号
+     */
+    private String account;
 
+    /**
+     * 用户昵称
+     */
+    private String nickName;
+    /**
+     * 用户类型（00系统用户）
+     */
+    private String userType;
     /**
      * 部门ID
      */
@@ -25,28 +37,18 @@ public class LoginUserInfo {
      * 用户唯一标识
      */
     private String token;
-
+//权限信息
     /**
      * 权限列表
      */
     private Set<String> permissions;
 
-    /**
-     * 用户信息
-     */
-    private SysUser user;
 
-
+//本次登录信息
     /**
      * 登录时间
      */
     private Long loginTime;
-
-    /**
-     * 过期时间
-     */
-    private Long expireTime;
-
 
     /**
      * 登录IP地址
@@ -68,16 +70,9 @@ public class LoginUserInfo {
      */
     private String os;
 
-    public LoginUserInfo(SysUser user, Set<String> permissions) {
-        this.user = user;
-        this.userId = user.getUserId();
-        this.permissions = permissions;
-    }
-
-    public LoginUserInfo(Long userId, Long deptId, SysUser user, Set<String> permissions) {
+    public LoginUserInfo(Long userId, Long deptId, Set<String> permissions) {
         this.userId = userId;
         this.deptId = deptId;
-        this.user = user;
         this.permissions = permissions;
     }
 

@@ -2,16 +2,17 @@ package com.rabbiter.oes.system.controller;
 
 import com.rabbiter.oes.common.resp.ApiResult;
 import com.rabbiter.oes.common.resp.ApiResultHandler;
+import com.rabbiter.oes.core.jwt.JwtPayloadInfo;
+import com.rabbiter.oes.system.service.JWTService;
 import com.rabbiter.oes.system.service.impl.SysLoginServiceImpl;
 import com.rabbiter.oes.system.vo.LoginBody;
 import com.rabbiter.oes.system.vo.LoginUserInfo;
-import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -20,43 +21,30 @@ import javax.servlet.http.HttpServletResponse;
  * @author Jackie Liao
  */
 @RestController
-@AllArgsConstructor
 @RequestMapping(value = "/system")
 public class SysLoginController {
-    private final SysLoginServiceImpl loginService;
+    @Resource
+    private SysLoginServiceImpl loginService;
+    @Resource
+    private JWTService jwtService;
 
     @PostMapping("/login")
-    public ApiResult<Object> login(@RequestBody LoginBody login, HttpServletResponse response) {
+    public ApiResult<Object> login(@RequestBody LoginBody login) {
         String username = login.getAccount();
         String password = login.getPassword();
         LoginUserInfo userRes = loginService.login(username, password);
         if (userRes == null) {
             return ApiResultHandler.buildApiResult(400, "请求失败", "账户密码错误!");
         }
+        JwtPayloadInfo build = JwtPayloadInfo.builder().username(userRes.getNickName()).build();
+        String token = jwtService.sign(build);
 
-        Cookie token = new Cookie("rb_token", userRes.getToken());
-        token.setPath("/");
-
-        Cookie role = new Cookie("rb_role", "1");
-        role.setPath("/");
-
-        //将cookie对象加入response响应
-        response.addCookie(token);
-        response.addCookie(role);
-
-        return ApiResultHandler.buildApiResult(200, "请求成功", userRes);
+        return ApiResultHandler.buildApiResult(200, "登录成功", token);
     }
 
     @PostMapping("/logout")
     public void logout(HttpServletResponse response) {
-        Cookie token = new Cookie("rb_token", null);
-        token.setPath("/");
-        token.setMaxAge(0);
-        Cookie role = new Cookie("rb_role", null);
-        role.setPath("/");
-        role.setMaxAge(0);
-        response.addCookie(token);
-        response.addCookie(role);
+        // 清除token
     }
 
     /**

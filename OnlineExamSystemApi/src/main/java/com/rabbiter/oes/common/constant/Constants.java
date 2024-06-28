@@ -96,7 +96,7 @@ public class Constants {
     /**
      * 令牌
      */
-    public static final String TOKEN = "token";
+    public static final String TOKEN = "drama_token";
 
     /**
      * 令牌前缀
