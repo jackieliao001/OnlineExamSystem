@@ -72,3 +72,18 @@ knife4j:
     username: dramaDoc
     # Basic认证密码
     password: knife4jDoc@2024#4drama
+
+---
+spring:
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/online_exam?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+logging:
+  level:
+    root: info
+    sql: debug
+
+
