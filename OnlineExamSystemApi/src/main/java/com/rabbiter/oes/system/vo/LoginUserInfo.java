@@ -1,14 +1,12 @@
 package com.rabbiter.oes.system.vo;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.rabbiter.oes.common.enums.UserStatusEnum;
+import com.rabbiter.oes.common.enums.UserTypeEnum;
+import lombok.Data;
 
 import java.util.Set;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class LoginUserInfo {
 // 账户基础信息
     /**
@@ -25,9 +23,13 @@ public class LoginUserInfo {
      */
     private String nickName;
     /**
-     * 用户类型（00系统用户）
+     * 用户类型（00系统用户，01普通用户）
      */
-    private String userType;
+    private UserTypeEnum userType;
+    /**
+     * 账户状态:1激活、0停用
+     */
+    private UserStatusEnum status;
     /**
      * 部门ID
      */

@@ -1,7 +1,8 @@
-package com.rabbiter.oes.core.config;
+package com.rabbiter.oes.common.core.config;
 
 import cn.hutool.core.util.StrUtil;
 import com.rabbiter.oes.common.enums.ResponseCode;
+import com.rabbiter.oes.common.exception.ApiException;
 import com.rabbiter.oes.common.exception.TokenException;
 import com.rabbiter.oes.common.resp.ApiResult;
 import com.rabbiter.oes.common.resp.ApiResultHandler;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
  * 全局异常处理类
  *
  * @author JackieLiao
- * @package com.rabbiter.oes.core.config
+ * @package com.rabbiter.oes.common.core.config
  * @since 2024/6/27
  */
 @Slf4j
@@ -56,9 +57,21 @@ public class GlobalExceptionHandler {
         return ApiResultHandler.failure(ResponseCode.METHOD_ARGUMENT_NOT_VALID.getCode(), defaultMessages);
     }
 
+    /**
+     * 处理自定义TokenException
+     */
     @ExceptionHandler(value = {TokenException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ApiResult<String> unauthorizedExceptionHandler(TokenException e) {
+        log.error("handler TokenException.", e);
+        return ApiResultHandler.failure(e.getErrorCode(), e.getMessage());
+    }
+
+    /**
+     * 处理自定义ApiException
+     */
+    @ExceptionHandler(value = ApiException.class)
+    public ApiResult<String> apiExceptionHandler(ApiException e) {
         log.error("handler TokenException.", e);
         return ApiResultHandler.failure(e.getErrorCode(), e.getMessage());
     }

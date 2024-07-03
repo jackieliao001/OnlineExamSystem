@@ -5,9 +5,9 @@ import com.alibaba.fastjson2.JSON;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
+import com.rabbiter.oes.common.core.jwt.JwtPayloadInfo;
 import com.rabbiter.oes.common.enums.ResponseCode;
 import com.rabbiter.oes.common.exception.TokenException;
-import com.rabbiter.oes.core.jwt.JwtPayloadInfo;
 import com.rabbiter.oes.system.service.JWTService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -75,8 +75,12 @@ public class HMACJwtServiceImpl implements JWTService {
     @Override
     public JwtPayloadInfo verifyAndGetPayload(String token) {
         String payload = verifyDirectByHMAC(token, String.valueOf(genKey()));
-        JwtPayloadInfo payloadInfo = JSON.parseObject(payload, JwtPayloadInfo.class);
-        return payloadInfo;
+        return JSON.parseObject(payload, JwtPayloadInfo.class);
+    }
+
+    @Override
+    public int getExpiresIn() {
+        return validTime * 60 * 60;
     }
 
     /**
@@ -126,7 +130,7 @@ public class HMACJwtServiceImpl implements JWTService {
             if (parse.verify(jwsVerifier)) {
                 return parse.getPayload().toString();
             }
-            throw new TokenException(ResponseCode.TOKEN_ERROR, "Payload can not be null");
+            throw new TokenException(ResponseCode.TOKEN_ERROR, "token verify fail");
         } catch (Exception e) {
             throw new TokenException(ResponseCode.TOKEN_ERROR, e);
         }

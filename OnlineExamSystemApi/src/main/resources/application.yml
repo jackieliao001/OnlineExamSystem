@@ -1,9 +1,9 @@
 server:
-  port: 9201
+  port: 8080
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
+#    type: com.alibaba.druid.pool.DruidDataSource
 
 logging:
   level:
@@ -35,4 +35,40 @@ jwt:
   expirationTime: 3
   #设置前端传递过来的令牌名称,优先匹配Authorization。
   tokenName: drama_token
+captcha:
+  #验证码开关
+  enable: true
+  #过期时间(单位 minute)
+  expire: 3
+  #验证码类型
+  type: math
+  #验证码长度
+  length: 4
+  #验证码宽度
+  width: 100
+  #验证码高度
+  height: 40
 
+# springdoc-openapi项目配置
+#springdoc:
+#  swagger-ui:
+#    path: /swagger-ui.html
+#    tags-sorter: alpha
+#    operations-sorter: alpha
+#  api-docs:
+#    path: /v3/api-docs
+#  group-configs:
+#    - group: 'default'
+#      paths-to-match: '/**'
+#      packages-to-scan: io.rainforest.banana.client1.web
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+  basic:
+    enable: true
+    # Basic认证用户名
+    username: dramaDoc
+    # Basic认证密码
+    password: knife4jDoc@2024#4drama

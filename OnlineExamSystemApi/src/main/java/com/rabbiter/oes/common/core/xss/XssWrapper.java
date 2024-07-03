@@ -1,4 +1,4 @@
-package com.rabbiter.oes.core.xss;
+package com.rabbiter.oes.common.core.xss;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
  * xss 攻击过滤实现
  *
  * @author JackieLiao
- * @package com.rabbiter.oes.core.xss
+ * @package com.rabbiter.oes.common.core.xss
  * @since 2024/6/28
  */
 public class XssWrapper extends HttpServletRequestWrapper {

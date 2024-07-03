@@ -1,6 +1,6 @@
-package com.rabbiter.oes.core.config;
+package com.rabbiter.oes.common.core.config;
 
-import com.rabbiter.oes.core.xss.XssWrapper;
+import com.rabbiter.oes.common.core.xss.XssWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import java.io.IOException;
  * xss攻击过滤器
  *
  * @author JackieLiao
- * @package com.rabbiter.oes.core.config
+ * @package com.rabbiter.oes.common.core.config
  * @since 2024/6/28
  */
 @Slf4j
@@ -25,7 +25,7 @@ public class XssFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
-        log.info("uri:{}", req.getRequestURI());
+        log.debug("XssFilter uri:{}", req.getRequestURI());
         // xss 过滤
         chain.doFilter(new XssWrapper(req), resp);
     }

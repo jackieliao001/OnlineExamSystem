@@ -1,12 +1,15 @@
 package com.rabbiter.oes.exam.controller;
 
-import com.rabbiter.oes.exam.entity.*;
+import com.rabbiter.oes.common.resp.ApiResult;
+import com.rabbiter.oes.common.resp.ApiResultHandler;
+import com.rabbiter.oes.exam.entity.FillQuestion;
+import com.rabbiter.oes.exam.entity.JudgeQuestion;
+import com.rabbiter.oes.exam.entity.MultiQuestion;
+import com.rabbiter.oes.exam.entity.PaperManage;
 import com.rabbiter.oes.exam.service.impl.FillQuestionServiceImpl;
 import com.rabbiter.oes.exam.service.impl.JudgeQuestionServiceImpl;
 import com.rabbiter.oes.exam.service.impl.MultiQuestionServiceImpl;
 import com.rabbiter.oes.exam.service.impl.PaperServiceImpl;
-import com.rabbiter.oes.common.resp.ApiResult;
-import com.rabbiter.oes.common.resp.ApiResultHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +28,7 @@ public class PaperController {
     @GetMapping("/papers")
     public ApiResult<List<PaperManage>> findAll() {
         List<PaperManage> all = paperService.findAll();
-        return ApiResultHandler.buildApiResult(200, "请求成功", all);
+        return ApiResultHandler.success(all);
     }
 
     @GetMapping("/paper/{paperId}")
@@ -44,9 +47,9 @@ public class PaperController {
     public ApiResult<Integer> add(@RequestBody PaperManage paperManage) {
         int res = paperService.add(paperManage);
         if (res != 0) {
-            return ApiResultHandler.buildApiResult(200, "添加成功", res);
+            return ApiResultHandler.success();
         }
-        return ApiResultHandler.buildApiResult(400, "添加失败", res);
+        return ApiResultHandler.failure();
     }
 
     /**
@@ -63,6 +66,6 @@ public class PaperController {
             @PathVariable("questionId") String questionId
     ) {
         paperService.delete(paperId, type, questionId);
-        return ApiResultHandler.buildApiResult(200, "删除成功", null);
+        return ApiResultHandler.success();
     }
 }

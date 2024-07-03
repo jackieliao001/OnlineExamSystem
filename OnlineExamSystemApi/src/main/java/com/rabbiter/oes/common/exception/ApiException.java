@@ -1,14 +1,16 @@
 package com.rabbiter.oes.common.exception;
 
 import com.rabbiter.oes.common.enums.ResponseCode;
+import lombok.Getter;
 
 /**
- * API接口请求异常
+ * API接口请求业务异常
  *
  * @author JackieLiao
  * @package com.rabbiter.oes.common.exception
  * @since 2024/6/27
  */
+@Getter
 public class ApiException extends RuntimeException {
     private final String errorCode;
 

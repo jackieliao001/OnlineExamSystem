@@ -1,4 +1,4 @@
-package com.rabbiter.oes.core.jwt;
+package com.rabbiter.oes.common.core.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,11 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 /**
+ * JWT的Payload信息
  * @author JackieLiao
- * @package com.rabbiter.oes.core.jwt
+ * @package com.rabbiter.oes.common.core.jwt
  * @since 2024/6/27
  */
 @Data()
@@ -32,8 +32,5 @@ public class JwtPayloadInfo {
 
     // "用户名称"
     private String username;
-
-    // "用户拥有的权限"
-    private List<String> authorities;
 
 }

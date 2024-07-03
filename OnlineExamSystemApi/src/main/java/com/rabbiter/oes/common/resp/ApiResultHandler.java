@@ -12,7 +12,7 @@ public class ApiResultHandler {
                 .build();
     }
 
-    public static ApiResult<Object> success() {
+    public static <T> ApiResult<T> success() {
         return success(null);
     }
 
@@ -24,16 +24,16 @@ public class ApiResultHandler {
                 .build();
     }
 
-    public static ApiResult<String> failure(String message) {
-        return ApiResult.<String>builder()
+    public static <T> ApiResult<T> failure(String message) {
+        return ApiResult.<T>builder()
                 .success(false)
                 .code(ResponseCode.FAILURE.getCode())
                 .message(message)
                 .build();
     }
 
-    public static ApiResult<String> failure(ResponseCode responseCode) {
-        return ApiResult.<String>builder()
+    public static <T> ApiResult<T> failure(ResponseCode responseCode) {
+        return ApiResult.<T>builder()
                 .success(false)
                 .code(responseCode.getCode())
                 .message(responseCode.getMsg())

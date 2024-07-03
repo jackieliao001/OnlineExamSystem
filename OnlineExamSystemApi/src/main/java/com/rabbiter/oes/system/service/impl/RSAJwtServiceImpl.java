@@ -5,9 +5,9 @@ import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jose.jwk.RSAKey;
+import com.rabbiter.oes.common.core.jwt.JwtPayloadInfo;
 import com.rabbiter.oes.common.enums.ResponseCode;
 import com.rabbiter.oes.common.exception.TokenException;
-import com.rabbiter.oes.core.jwt.JwtPayloadInfo;
 import com.rabbiter.oes.system.service.JWTService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,6 +69,11 @@ public class RSAJwtServiceImpl implements JWTService {
     public JwtPayloadInfo verifyAndGetPayload(String token) {
         String payload = verifyDirectByRSA(token, (RSAKey) genKey());
         return JSON.parseObject(payload, JwtPayloadInfo.class);
+    }
+
+    @Override
+    public int getExpiresIn() {
+        return validTime * 60 * 60;
     }
 
     /**

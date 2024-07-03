@@ -5,12 +5,14 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.rabbiter.oes.common.domain.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 部门表
  * TableName sys_dept
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @TableName(value = "sys_dept")
 public class SysDept extends BaseEntity {
     private static final long serialVersionUID = 1L;

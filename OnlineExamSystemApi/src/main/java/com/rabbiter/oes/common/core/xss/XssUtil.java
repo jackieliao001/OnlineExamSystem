@@ -1,4 +1,4 @@
-package com.rabbiter.oes.core.xss;
+package com.rabbiter.oes.common.core.xss;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,7 +8,7 @@ import org.jsoup.safety.Safelist;
  * 过滤 HTML 标签中 XSS 代码
  *
  * @author JackieLiao
- * @package com.rabbiter.oes.core.xss
+ * @package com.rabbiter.oes.common.core.xss
  * @since 2024/6/28
  */
 public class XssUtil {

@@ -1,4 +1,4 @@
-package com.rabbiter.oes.config;
+package com.rabbiter.oes.common.core.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

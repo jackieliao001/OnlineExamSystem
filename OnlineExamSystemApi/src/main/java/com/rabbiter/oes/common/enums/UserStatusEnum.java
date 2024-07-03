@@ -1,5 +1,6 @@
 package com.rabbiter.oes.common.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
@@ -9,8 +10,9 @@ import lombok.Getter;
  */
 @Getter
 public enum UserStatusEnum {
-    OK("0", "正常"), DISABLE("1", "停用"), DELETED("2", "删除");
+    OK("0", "正常"), DISABLE("1", "停用"), LOCK("2", "锁定");
 
+    @EnumValue // 标记数据库存的值是code
     private final String code;
     private final String info;
 

@@ -1,9 +1,9 @@
 package com.rabbiter.oes.exam.controller;
 
 import com.rabbiter.oes.common.resp.ApiResult;
+import com.rabbiter.oes.common.resp.ApiResultHandler;
 import com.rabbiter.oes.exam.entity.FillQuestion;
 import com.rabbiter.oes.exam.service.impl.FillQuestionServiceImpl;
-import com.rabbiter.oes.common.resp.ApiResultHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,23 +20,23 @@ public class FillQuestionController {
     public ApiResult add(@RequestBody FillQuestion fillQuestion) {
         int res = fillQuestionService.add(fillQuestion);
         if (res != 0) {
-            return ApiResultHandler.buildApiResult(200,"添加成功",res);
+            return ApiResultHandler.success(res);
         }
-        return ApiResultHandler.buildApiResult(400,"添加失败",res);
+        return ApiResultHandler.failure();
     }
 
     @GetMapping("/fillQuestionId")
     public ApiResult findOnlyQuestionId() {
         FillQuestion res = fillQuestionService.findOnlyQuestionId();
-        return ApiResultHandler.buildApiResult(200,"查询成功",res);
+        return ApiResultHandler.success(res);
     }
 
     @PostMapping("/editFillQuestion")
     public ApiResult edit(@RequestBody FillQuestion fillQuestion) {
         int res = fillQuestionService.edit(fillQuestion);
         if (res != 0) {
-            return ApiResultHandler.buildApiResult(200,"修改成功",res);
+            return ApiResultHandler.success(res);
         }
-        return ApiResultHandler.buildApiResult(400,"修改失败",res);
+        return ApiResultHandler.failure();
     }
 }

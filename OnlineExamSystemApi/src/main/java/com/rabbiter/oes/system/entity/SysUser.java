@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rabbiter.oes.common.domain.BaseEntity;
 import com.rabbiter.oes.common.enums.SexEnum;
-import lombok.Getter;
-import lombok.Setter;
+import com.rabbiter.oes.common.enums.UserStatusEnum;
+import com.rabbiter.oes.common.enums.UserTypeEnum;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
+
 
 /**
  * 系统用户表(SysUser)实体类
@@ -16,8 +19,8 @@ import java.util.Date;
  * @author jackie liao
  * @since 2024-05-17 15:15:54
  */
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 776630034631286344L;
     /**
@@ -45,11 +48,11 @@ public class SysUser extends BaseEntity {
     /**
      * 用户类型（00系统用户）
      */
-    private String userType;
+    private UserTypeEnum userType;
     /**
      * 账户状态:1激活、0停用
      */
-    private String status;
+    private UserStatusEnum status;
     /**
      * 性别:1男，2女，3未知
      */
@@ -74,4 +77,3 @@ public class SysUser extends BaseEntity {
     private Date loginDate;
 
 }
-

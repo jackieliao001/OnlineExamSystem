@@ -3,16 +3,16 @@ package com.rabbiter.oes.exam.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rabbiter.oes.common.resp.ApiResult;
+import com.rabbiter.oes.common.resp.ApiResultHandler;
 import com.rabbiter.oes.exam.entity.Teacher;
 import com.rabbiter.oes.exam.service.impl.TeacherServiceImpl;
-import com.rabbiter.oes.common.resp.ApiResultHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TeacherController {
 
-    private TeacherServiceImpl teacherService;
+    private final TeacherServiceImpl teacherService;
     @Autowired
     public TeacherController(TeacherServiceImpl teacherService){
         this.teacherService = teacherService;
@@ -23,7 +23,7 @@ public class TeacherController {
         Page<Teacher> teacherPage = new Page<>(page,size);
         IPage<Teacher> teacherIPage = teacherService.findAll(teacherPage);
 
-        return ApiResultHandler.buildApiResult(200,"查询所有教师",teacherIPage);
+        return ApiResultHandler.success(teacherIPage);
     }
 
     @GetMapping("/teacher/{teacherId}")

@@ -2,8 +2,7 @@ package com.rabbiter.oes.common.domain;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,8 +13,7 @@ import java.util.Date;
  * @package com.rabbiter.oes.common.domain
  * @since 2024/5/22
  */
-@Getter
-@Setter
+@Data
 public class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

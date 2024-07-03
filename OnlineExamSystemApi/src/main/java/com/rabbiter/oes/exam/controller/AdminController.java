@@ -1,30 +1,31 @@
 package com.rabbiter.oes.exam.controller;
 
-import com.rabbiter.oes.exam.entity.Admin;
 import com.rabbiter.oes.common.resp.ApiResult;
-import com.rabbiter.oes.exam.service.impl.AdminServiceImpl;
 import com.rabbiter.oes.common.resp.ApiResultHandler;
+import com.rabbiter.oes.exam.entity.Admin;
+import com.rabbiter.oes.exam.service.impl.AdminServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AdminController {
 
-    private AdminServiceImpl adminService;
+    private final AdminServiceImpl adminService;
     @Autowired
     public AdminController(AdminServiceImpl adminService){
         this.adminService = adminService;
     }
 
+    @Operation(summary = "查询全部")
     @GetMapping("/admins")
     public ApiResult findAll(){
-        System.out.println("查询全部");
         return ApiResultHandler.success(adminService.findAll());
     }
 
+    @Operation(summary = "根据ID查找")
     @GetMapping("/admin/{adminId}")
     public ApiResult findById(@PathVariable("adminId") Integer adminId){
-        System.out.println("根据ID查找");
         return ApiResultHandler.success(adminService.findById(adminId));
     }
 

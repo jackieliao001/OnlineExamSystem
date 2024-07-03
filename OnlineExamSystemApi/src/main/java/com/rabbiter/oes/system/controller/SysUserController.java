@@ -6,6 +6,8 @@ import com.rabbiter.oes.common.resp.ApiResultHandler;
 import com.rabbiter.oes.common.resp.PageRequest;
 import com.rabbiter.oes.system.entity.SysUser;
 import com.rabbiter.oes.system.service.SysUserService;
+import com.rabbiter.oes.system.vo.LoginUserInfo;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,11 +23,17 @@ import org.springframework.web.bind.annotation.*;
 public class SysUserController {
     private final SysUserService sysUserService;
 
+    @Operation(summary = "获取当前登录用户信息")
+    @GetMapping("/getUserInfo")
+    public ApiResult<LoginUserInfo> getCurrUserInfo() {
+        return sysUserService.getCurrUserInfo();
+    }
+
     /**
      * 分页查询
      *
-     * @param sysUser 筛选条件
-     * @param pageRequest      分页对象
+     * @param sysUser     筛选条件
+     * @param pageRequest 分页对象
      * @return 查询结果
      */
     @GetMapping

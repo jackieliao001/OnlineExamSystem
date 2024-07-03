@@ -104,9 +104,9 @@ public class Constants {
     public static final String TOKEN_PREFIX = "Bearer ";
 
     /**
-     * 令牌前缀
+     * 登录用户key前缀
      */
-    public static final String LOGIN_USER_KEY = "login_user_key";
+    public static final String LOGIN_USER_KEY = "login_user_key:";
 
     /**
      * 用户ID
@@ -137,5 +137,11 @@ public class Constants {
      * 资源映射路径 前缀
      */
     public static final String RESOURCE_PREFIX = "/profile";
+
+    /**
+     * 验证码 key
+     */
+    public static final String CAPTCHA_KEY = "captcha";
+
 
 }

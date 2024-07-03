@@ -5,7 +5,7 @@ import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.nimbusds.jose.Payload;
-import com.rabbiter.oes.core.jwt.JwtPayloadInfo;
+import com.rabbiter.oes.common.core.jwt.JwtPayloadInfo;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -121,4 +121,9 @@ public interface JWTService {
 
         return new Payload(JSON.toJSONString(payloadInfo));
     }
+
+    /**
+     * 计算过期时间（单位:秒）
+     */
+    int getExpiresIn();
 }

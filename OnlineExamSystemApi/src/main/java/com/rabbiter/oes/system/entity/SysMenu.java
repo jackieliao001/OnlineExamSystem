@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.rabbiter.oes.common.domain.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
  * TableName sys_menu
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @TableName(value = "sys_menu")
 public class SysMenu extends BaseEntity {
     @TableField(exist = false)
